@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="card jh-card">
     <h2>
       <span id="user-management-page-heading" data-cy="userManagementPageHeading">Users</span>
 

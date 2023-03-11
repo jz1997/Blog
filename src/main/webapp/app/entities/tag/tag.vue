@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="card jh-card">
     <h2 id="page-heading" data-cy="TagHeading">
       <span id="tag-heading">Tags</span>
       <div class="d-flex justify-content-end">

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="card jh-card">
     <h2 id="page-heading" data-cy="BlogHeading">
       <span id="blog-heading">Blogs</span>
 
@@ -36,10 +36,9 @@
               <span>Title</span>
               <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'title'"></jhi-sort-indicator>
             </th>
-            <!--<th scope="row" v-on:click="changeOrder('content')">-->
-            <!--  <span>Content</span>-->
-            <!--  <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'content'"></jhi-sort-indicator>-->
-            <!--</th>-->
+            <th scope="row">
+              <span>Description</span>
+            </th>
             <th scope="row" v-on:click="changeOrder('author.name')">
               <span>Author</span>
               <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'author.name'"></jhi-sort-indicator>
@@ -61,7 +60,7 @@
               <router-link :to="{ name: 'BlogView', params: { blogId: blog.id } }">{{ blog.id }}</router-link>
             </td>
             <td>{{ blog.title }}</td>
-            <!--<td>{{ blog.content }}</td>-->
+            <td>{{ blog.description }}</td>
             <td>
               {{ blog.author ? blog.author.firstName : '' }}
             </td>

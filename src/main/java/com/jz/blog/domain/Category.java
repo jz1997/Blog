@@ -30,7 +30,7 @@ public class Category implements Serializable {
     @Column(name = "name", length = 64, nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "comments", "author", "tags", "category" }, allowSetters = true)
     private Set<Blog> blogs = new HashSet<>();

@@ -23,6 +23,10 @@ const validations: any = {
       required,
       maxLength: maxLength(255),
     },
+    description: {
+      required,
+      maxlength: maxLength(255),
+    },
     content: {
       required,
     },

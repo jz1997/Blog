@@ -82,7 +82,7 @@ public class SecurityConfiguration {
             .antMatchers("/api/activate").permitAll()
             .antMatchers("/api/account/reset-password/init").permitAll()
             .antMatchers("/api/account/reset-password/finish").permitAll()
-            .antMatchers(HttpMethod.GET, "/api/blogs", "/api/categories", "/api/comments", "/api/tags").permitAll()
+            .antMatchers(HttpMethod.GET, "/api/blogs", "/api/blogs/*", "/api/categories", "/api/comments", "/api/tags").permitAll()
             .antMatchers("/api/admin/**").hasAuthority(AuthoritiesConstants.ADMIN)
             .antMatchers("/api/**").authenticated()
             .antMatchers("/management/health").permitAll()

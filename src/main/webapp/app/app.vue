@@ -5,9 +5,9 @@
       <jhi-navbar></jhi-navbar>
     </div>
     <div class="container-fluid">
-      <div class="card jh-card">
-        <router-view></router-view>
-      </div>
+      <!--<div class="card jh-card">-->
+      <router-view></router-view>
+      <!--</div>-->
       <b-modal id="login-page" hide-footer lazy>
         <span data-cy="loginTitle" slot="modal-title" id="login-title">Sign in</span>
         <login-form></login-form>

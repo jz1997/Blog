@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="card jh-card">
     <h2 id="configuration-page-heading" data-cy="configurationPageHeading">Configuration</h2>
 
     <div v-if="allConfiguration && configuration">

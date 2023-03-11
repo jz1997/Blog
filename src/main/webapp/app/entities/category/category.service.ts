@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import buildPaginationQueryOpts from '@/shared/sort/sorts';
 
-import { ICategory } from '@/shared/model/category.model';
+import {ICategory} from '@/shared/model/category.model';
 
 const baseApiUrl = 'api/categories';
 

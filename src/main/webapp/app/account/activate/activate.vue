@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="card jh-card">
     <div class="row justify-content-center">
       <div class="col-md-8">
         <h1>Activation</h1>

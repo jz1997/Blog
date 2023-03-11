@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="card jh-card">
     <h2>
       <span id="metrics-page-heading" data-cy="metricsPageHeading">Application Metrics</span>
       <button class="btn btn-primary float-right" v-on:click="refresh()">

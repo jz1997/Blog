@@ -1,4 +1,4 @@
-import { IBlog } from '@/shared/model/blog.model';
+import {IBlog} from '@/shared/model/blog.model';
 
 export interface ICategory {
   id?: number;
@@ -7,5 +7,6 @@ export interface ICategory {
 }
 
 export class Category implements ICategory {
-  constructor(public id?: number, public name?: string, public blogs?: IBlog[] | null) {}
+  constructor(public id?: number, public name?: string, public blogs?: IBlog[] | null) {
+  }
 }

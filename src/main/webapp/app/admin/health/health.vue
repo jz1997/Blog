@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="card jh-card">
     <h2>
       <span id="health-page-heading" data-cy="healthPageHeading">Health Checks</span>
       <button class="btn btn-primary float-right" v-on:click="refresh()" :disabled="updatingHealth">

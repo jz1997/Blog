@@ -1,8 +1,11 @@
 import { Component, Vue, Inject } from 'vue-property-decorator';
 import Vue2Filters from 'vue2-filters';
 import { IBlog } from '@/shared/model/blog.model';
+import { ICategory } from '@/shared/model/category.model';
+import BlogService from '@/entities/blog/blog.service';
+import TagService from '@/entities/tag/tag.service';
+import CategoryService from '@/entities/category/category.service';
 
-import BlogService from './blog.service';
 import AlertService from '@/shared/alert/alert.service';
 
 @Component({
@@ -10,115 +13,73 @@ import AlertService from '@/shared/alert/alert.service';
 })
 export default class Blog extends Vue {
   @Inject('blogService') private blogService: () => BlogService;
+  @Inject('tagService') private tagService: () => TagService;
+  @Inject('categoryService') private categoryService: () => CategoryService;
   @Inject('alertService') private alertService: () => AlertService;
 
-  private removeId: number = null;
-  public itemsPerPage = 20;
-  public queryCount: number = null;
   public page = 1;
   public previousPage = 1;
-  public propOrder = 'id';
-  public reverse = false;
+  public itemsPerPage = 20;
+  public sort = ['createdDate,desc'];
   public totalItems = 0;
 
+  public selectedCategory: ICategory = null;
   public blogs: IBlog[] = [];
-
-  public isFetching = false;
-
-  public params: any = {
-    "title.contains": null
-  }
+  public categories: ICategory[] = [];
 
   public mounted(): void {
-    this.retrieveAllBlogs();
+    this.retrieveAllCategories();
+    this.retrieveBlogs();
   }
 
-  public clear(): void {
-    this.page = 1;
-    this.retrieveAllBlogs();
-  }
-
-  public retrieveAllBlogs(): void {
-    this.isFetching = true;
-    const paginationQuery = {
-      page: this.page - 1,
-      size: this.itemsPerPage,
-      sort: this.sort(),
-    };
-    this.blogService()
-      .retrieve(paginationQuery, this.params)
+  /**
+   * 查询全部的分类
+   */
+  public retrieveAllCategories(): void {
+    this.categoryService()
+      .retrieve({
+        page: 0,
+        size: 1000000,
+        sort: ['name,asc'],
+      })
       .then(
         res => {
-          this.blogs = res.data;
-          this.totalItems = Number(res.headers['x-total-count']);
-          this.queryCount = this.totalItems;
-          this.isFetching = false;
+          this.categories = res.data;
         },
         err => {
-          this.isFetching = false;
           this.alertService().showHttpError(this, err.response);
         }
       );
   }
 
-  public handleSyncList(): void {
-    this.clear();
-  }
-
-  public prepareRemove(instance: IBlog): void {
-    this.removeId = instance.id;
-    if (<any>this.$refs.removeEntity) {
-      (<any>this.$refs.removeEntity).show();
-    }
-  }
-
-  public removeBlog(): void {
+  public retrieveBlogs(): void {
+    const paginationQuery = {
+      page: this.page - 1,
+      size: this.itemsPerPage,
+      sort: this.sort,
+    };
     this.blogService()
-      .delete(this.removeId)
-      .then(() => {
-        const message = 'A Blog is deleted with identifier ' + this.removeId;
-        this.$bvToast.toast(message.toString(), {
-          toaster: 'b-toaster-top-center',
-          title: 'Info',
-          variant: 'danger',
-          solid: true,
-          autoHideDelay: 5000,
-        });
-        this.removeId = null;
-        this.retrieveAllBlogs();
-        this.closeDialog();
-      })
-      .catch(error => {
-        this.alertService().showHttpError(this, error.response);
-      });
+      .retrieve(paginationQuery)
+      .then(
+        res => {
+          this.blogs = res.data;
+          this.totalItems = Number(res.headers['x-total-count']);
+        },
+          err => {
+            this.alertService().showHttpError(this, err.response);
+          };
+      );
   }
 
-  public sort(): Array<any> {
-    const result = [this.propOrder + ',' + (this.reverse ? 'desc' : 'asc')];
-    if (this.propOrder !== 'id') {
-      result.push('id');
-    }
-    return result;
-  }
-
+  // 分页请求
   public loadPage(page: number): void {
     if (page !== this.previousPage) {
       this.previousPage = page;
-      this.transition();
+      this.retrieveBlogs();
     }
   }
 
-  public transition(): void {
-    this.retrieveAllBlogs();
-  }
-
-  public changeOrder(propOrder): void {
-    this.propOrder = propOrder;
-    this.reverse = !this.reverse;
-    this.transition();
-  }
-
-  public closeDialog(): void {
-    (<any>this.$refs.removeEntity).hide();
+  public onCategoryClick(category): void {
+    this.selectedCategory = category;
   }
 }

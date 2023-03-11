@@ -11,6 +11,7 @@ export interface IBlog {
   author?: IUser | null;
   tags?: ITag[] | null;
   category?: ICategory | null;
+  createdDate?: string | null;
 }
 
 export class Blog implements IBlog {
@@ -21,6 +22,7 @@ export class Blog implements IBlog {
     public comments?: IComment[] | null,
     public author?: IUser | null,
     public tags?: ITag[] | null,
-    public category?: ICategory | null
+    public category?: ICategory | null,
+    public createdDate?: string | null
   ) {}
 }

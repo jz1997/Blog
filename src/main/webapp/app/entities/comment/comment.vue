@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="card jh-card">
     <h2 id="page-heading" data-cy="CommentHeading">
       <span id="comment-heading">Comments</span>
       <div class="d-flex justify-content-end">
