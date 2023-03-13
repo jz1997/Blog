@@ -1,4 +1,4 @@
-FROM azul/zulu-openjdk-alpine:17.0.6-17.40.19-jre-headless-x86 as build
+FROM azul/zulu-openjdk-alpine:17.0.5-17.38.21-jre-headless-arm64 as build
 
 MAINTAINER jzheng jiangzheng1023@foxmail.com
 
@@ -7,7 +7,7 @@ RUN mkdir /app
 WORKDIR /app
 
 ENV _JAVA_OPTIONS="-Xmx256m -Xms128m"
-ENV SPRING_PROFILES_ACTIVE=prod,api-docs
+ENV SPRING_PROFILES_ACTIVE=dev,api-docs
 ENV MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
 ENV SPRING_DATASOURCE_URL="jdbc:mysql://mysql_default:3306/blog?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true"
 ENV SPRING_LIQUIBASE_URL="jdbc:mysql://mysql_default:3306/blog?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true"

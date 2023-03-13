@@ -65,9 +65,9 @@ export default class Blog extends Vue {
           this.blogs = res.data;
           this.totalItems = Number(res.headers['x-total-count']);
         },
-          err => {
-            this.alertService().showHttpError(this, err.response);
-          };
+        err => {
+          this.alertService().showHttpError(this, err.response);
+        }
       );
   }
 
